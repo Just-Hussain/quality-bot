@@ -1,0 +1,14 @@
+{
+	"startMessage": "Hello and Welcome! You can start by choosing your language of preference 👇",
+	"Locales": {
+		"english": "English 💭",
+		"arabic": "العربية 💭",
+		"changeLocale": "Choose the language you want to switch to 👇",
+		"localeChanged": "Language changed successfully ⚡"
+	},
+	"Actions": {
+		"locationRequest": "Share your location 🛸",
+		"reportIssue": "Report an issue 🚨",
+		"reviewService": "Review an order ✅"
+	}
+}
