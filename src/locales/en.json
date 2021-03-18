@@ -9,6 +9,12 @@
 	"Actions": {
 		"locationRequest": "Share your location 🛸",
 		"reportIssue": "Report an issue 🚨",
-		"reviewService": "Review an order ✅"
+		"reviewService": "Review an order ✅",
+		"start": "Start"
+	},
+	"Prompts": {
+		"start": "Click the button so we can start helping you 👇",
+		"options": "How may i help you ? click what you want to do 👇",
+		"cancel": "Cancelled the operation, you can start again 🛑"
 	}
 }

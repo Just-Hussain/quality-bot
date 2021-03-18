@@ -4,17 +4,22 @@ import { Telegraf } from 'telegraf'
 import i18n from 'i18n'
 import handlers from './handlers'
 
-i18n.configure({
-	directory: path.join(__dirname, '/locales'),
-	defaultLocale: 'en',
-	objectNotation: true,
-})
-
-// Setup
+// Exit if no token is provided
 const token = process.env.BOT_TOKEN
 if (token === undefined) {
 	throw new Error('BOT_TOKEN must be provided in .env')
 }
+
+// Setup
+
+// Configure i18n singleton
+i18n.configure({
+	directory: path.join(__dirname, '/locales'),
+	defaultLocale: 'ar',
+	objectNotation: true,
+})
+
+// init the bot
 const bot = new Telegraf(token)
 // bot.use(Telegraf.log())
 
@@ -27,4 +32,4 @@ process.once('SIGTERM', () => bot.stop('SIGTERM'))
 
 // Start the bot
 bot.launch()
-console.log('up')
+console.log('Up & Running')
