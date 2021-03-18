@@ -2,7 +2,7 @@ require('dotenv').config()
 import path from 'path'
 import { Telegraf } from 'telegraf'
 import i18n from 'i18n'
-import TelegrafModules from './modules'
+import handlers from './handlers'
 
 i18n.configure({
 	directory: path.join(__dirname, '/locales'),
@@ -19,7 +19,7 @@ const bot = new Telegraf(token)
 // bot.use(Telegraf.log())
 
 // Passes the bot instance to the responsible modules
-TelegrafModules(bot)
+handlers(bot)
 
 // Enable graceful stop
 process.once('SIGINT', () => bot.stop('SIGINT'))
