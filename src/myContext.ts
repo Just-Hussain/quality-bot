@@ -1,4 +1,4 @@
-import { Context } from 'telegraf'
+import { Context, Scenes } from 'telegraf'
 
 export enum Ratings {
 	BAD = 1,
@@ -40,13 +40,15 @@ export interface Issue {
 	photo?: string
 }
 
-export interface Session {
+export interface Session extends Scenes.SceneSessionData {
 	user: User
 	location: string
 	responses: Response[]
 	issues: Issue[]
+	__scenes: Scenes.SceneSessionData
 }
 
 export interface MyContext extends Context {
 	session: Session
+	scene: Scenes.SceneContextScene<MyContext>
 }

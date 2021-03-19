@@ -1,6 +1,6 @@
 require('dotenv').config()
 import path from 'path'
-import { Telegraf } from 'telegraf'
+import { Telegraf, Scenes } from 'telegraf'
 import { MyContext } from './myContext'
 import LocalSession from 'telegraf-session-local'
 import i18n from 'i18n'
@@ -14,6 +14,22 @@ if (token === undefined) {
 
 // Setup
 
+// init the bot
+const bot = new Telegraf<MyContext>(token)
+// bot.use(Telegraf.log())
+
+// configure the local session
+const localSession = new LocalSession({
+	storage: LocalSession.storageFileAsync,
+})
+bot.use(localSession.middleware())
+
+// Configure stage
+let stage = new Scenes.Stage<MyContext>()
+bot.use(stage.middleware())
+
+bot.command('sc', ctx => ctx.scene.enter('echo'))
+
 // Configure i18n singleton
 i18n.configure({
 	directory: path.join(__dirname, '/locales'),
@@ -21,19 +37,8 @@ i18n.configure({
 	objectNotation: true,
 })
 
-// configure the local session
-const localSession = new LocalSession({
-	storage: LocalSession.storageFileAsync,
-})
-
-// init the bot
-const bot = new Telegraf<MyContext>(token)
-// bot.use(Telegraf.log())
-bot.use(localSession.middleware())
-
-// Passes the bot instance to the responsible modules
-
-handlers(bot)
+// Passes the bot and stage instances to the responsible handlers
+handlers(bot, stage)
 
 // Enable graceful stop
 process.once('SIGINT', () => bot.stop('SIGINT'))

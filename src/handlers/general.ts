@@ -87,4 +87,6 @@ export default (bot: Telegraf<MyContext>): void => {
 		ctx.answerCbQuery()
 		ctx.reply(i18n.__('Prompts.options'), optionsBtns())
 	})
+
+	bot.action(Actions.REPORT_ISSUE, ctx => ctx.scene.enter('issue-scene'))
 }
