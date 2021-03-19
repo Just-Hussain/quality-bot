@@ -3,6 +3,7 @@ import { Telegraf, Markup } from 'telegraf'
 import { MyContext } from '../myContext'
 import Actions from '../constants/actions'
 import Commands from '../constants/commands'
+import flow from './flow'
 
 export default (bot: Telegraf<MyContext>): void => {
 	const localeBtns = Markup.inlineKeyboard([
@@ -46,6 +47,7 @@ export default (bot: Telegraf<MyContext>): void => {
 
 	// handles /cancel
 	bot.command(Commands.CANCEL, async ctx => {
+		flow.stopFlow()
 		await ctx.reply(i18n.__('Prompts.cancel'))
 		ctx.reply(i18n.__('Prompts.start'), startBtn())
 	})

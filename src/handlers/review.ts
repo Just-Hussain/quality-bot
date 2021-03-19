@@ -3,6 +3,7 @@ import { Telegraf, Markup } from 'telegraf'
 import { MyContext, ReviewQuestions, Ratings } from '../myContext'
 import { Review, Response } from '../models'
 import Actions from '../constants/actions'
+import flow from './flow'
 
 // A flag to check if the bot is accepting textual input or not
 let commentRequested: boolean = false
@@ -50,8 +51,11 @@ export default (bot: Telegraf<MyContext>): void => {
 	bot.action(Actions.REVIEW_SERVICE, async ctx => {
 		await ctx.answerCbQuery()
 
+		flow.startFlow()
 		response = new Response()
 		currentQuestion = ReviewQuestions.TRACKING
+		commentRequested = false
+		comment = undefined
 
 		await ctx.reply(i18n.__('Prompts.reviewService'))
 		ctx.reply(i18n.__('Prompts.Review.tracking'), ratingBtns())
@@ -62,6 +66,8 @@ export default (bot: Telegraf<MyContext>): void => {
 		[Actions.RATING_BAD, Actions.RATING_GOOD, Actions.RATING_EXCELLENT],
 		async ctx => {
 			await ctx.answerCbQuery()
+
+			if (!flow.isFlowing) return
 
 			let action: string = (ctx.callbackQuery as any).data
 			switch (action) {
@@ -85,7 +91,7 @@ export default (bot: Telegraf<MyContext>): void => {
 	// Check if the bot is expecting the incoming message,
 	// if yes, store it in its variable
 	bot.on('message', ctx => {
-		if (commentRequested) {
+		if (commentRequested && flow.isFlowing) {
 			comment = (ctx.message as any).text
 			handleQuestionsFlow(ctx)
 		}
@@ -95,11 +101,16 @@ export default (bot: Telegraf<MyContext>): void => {
 	bot.action(Actions.NEXT, async ctx => {
 		await ctx.answerCbQuery()
 
+		if (!flow.isFlowing) return
+
 		handleQuestionsFlow(ctx)
 	})
 }
 
+// Helper
 function handleQuestionsFlow(ctx: MyContext): void {
+	if (!flow.isFlowing) return
+
 	switch (currentQuestion) {
 		case ReviewQuestions.TRACKING:
 			response.reviews.push(
@@ -126,8 +137,11 @@ function handleQuestionsFlow(ctx: MyContext): void {
 		case ReviewQuestions.PRICE:
 			response.reviews.push(new Review(ReviewQuestions.PRICE, rating, comment))
 
-			// reset the questions flow
-			currentQuestion = ReviewQuestions.TRACKING
+			// store the response locally
+			// ctx.session.responses.push(response)
+			console.log(response)
+			flow.stopFlow()
+
 			ctx.reply(i18n.__('Prompts.Review.finish'), homeBtn())
 	}
 
