@@ -10,11 +10,26 @@
 		"locationRequest": "Share your location 🛸",
 		"reportIssue": "Report an issue 🚨",
 		"reviewService": "Review an order ✅",
-		"start": "Start"
+		"start": "Start",
+		"Ratings": {
+			"bad": "Bad ❌",
+			"good": "Good ✔",
+			"excellent": "Excellent 🌟"
+		},
+		"next": "Next",
+		"Review": {}
 	},
 	"Prompts": {
 		"start": "Click the button so we can start helping you 👇",
 		"options": "How may i help you ? click what you want to do 👇",
-		"cancel": "Cancelled the operation, you can start again 🛑"
+		"cancel": "Cancelled the operation, you can start again 🛑",
+		"reviewService": "Your opinion matters! This will be a simple survey about the service and product. Just follow along 👏",
+		"comment": "You can comment on the service or proceed by clicking the button 👇",
+		"Review": {
+			"tracking": "How was your shipment tracking experience 🚛 ? ",
+			"location": "How precise was the delivery location 📫 ? ",
+			"status": "How is the physical status of the product ?",
+			"price": "How was the pricing 💲 ?"
+		}
 	}
 }

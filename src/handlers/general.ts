@@ -16,6 +16,19 @@ export default (bot: Telegraf): void => {
 		])
 	}
 
+	const optionsBtns = () => {
+		return Markup.inlineKeyboard([
+			Markup.button.callback(
+				i18n.__('Actions.reviewService'),
+				Actions.REVIEW_SERVICE
+			),
+			Markup.button.callback(
+				i18n.__('Actions.reportIssue'),
+				Actions.REPORT_ISSUE
+			),
+		])
+	}
+
 	// Bot first time starting
 	bot.start(ctx => {
 		ctx.reply(i18n.__('startMessage'), localeBtns)
@@ -51,5 +64,10 @@ export default (bot: Telegraf): void => {
 
 		await ctx.reply(i18n.__('Locales.localeChanged'))
 		ctx.reply(i18n.__('Prompts.start'), startBtn())
+	})
+
+	bot.action(Actions.START, ctx => {
+		ctx.answerCbQuery()
+		ctx.reply(i18n.__('Prompts.options'), optionsBtns())
 	})
 }
