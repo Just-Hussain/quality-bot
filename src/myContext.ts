@@ -1,9 +1,16 @@
 import { Context } from 'telegraf'
 
-export enum Rating {
+export enum Ratings {
 	BAD = 1,
 	GOOD,
 	EXCELLENT,
+}
+
+export enum ReviewQuestions {
+	TRACKING = 'Quality of shipment tracking.',
+	LOCATION = 'Precision of delivery location',
+	STATUS = 'Physical Status of product',
+	PRICE = 'Price of product',
 }
 
 export interface User {
@@ -15,10 +22,16 @@ export interface User {
 	language_code: string
 }
 
+export interface Review {
+	id: number
+	question: ReviewQuestions
+	rating: Ratings
+	comment?: string
+}
+
 export interface Response {
 	id: number
-	rating: Rating
-	comment?: string
+	reviews: Review
 }
 
 export interface Issue {

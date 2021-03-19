@@ -1,16 +1,10 @@
 import i18n from 'i18n'
 import { Telegraf, Context, Markup } from 'telegraf'
-import { MyContext } from '../myContext'
+import { MyContext, ReviewQuestions } from '../myContext'
 import Actions from '../constants/actions'
 
-enum Questions {
-	TRACKING,
-	LOCATION,
-	STATUS,
-	PRICE,
-}
 let commentRequested: boolean = false
-let currentQuestion: Questions = Questions.TRACKING
+let currentQuestion: ReviewQuestions = ReviewQuestions.TRACKING
 
 export default (bot: Telegraf<MyContext>): void => {
 	let ratingBtns = () => {
@@ -32,7 +26,7 @@ export default (bot: Telegraf<MyContext>): void => {
 	bot.action(Actions.REVIEW_SERVICE, async ctx => {
 		await ctx.answerCbQuery()
 
-		currentQuestion = Questions.TRACKING
+		currentQuestion = ReviewQuestions.TRACKING
 		await ctx.reply(i18n.__('Prompts.reviewService'))
 		ctx.reply(i18n.__('Prompts.Review.tracking'), ratingBtns())
 	})
@@ -49,23 +43,23 @@ export default (bot: Telegraf<MyContext>): void => {
 
 		commentRequested = false
 		switch (currentQuestion) {
-			case Questions.TRACKING:
-				currentQuestion++
+			case ReviewQuestions.TRACKING:
+				currentQuestion = ReviewQuestions.LOCATION
 				ctx.reply(i18n.__('Prompts.Review.location'), ratingBtns())
 				break
 
-			case Questions.LOCATION:
-				currentQuestion++
+			case ReviewQuestions.LOCATION:
+				currentQuestion = ReviewQuestions.STATUS
 				ctx.reply(i18n.__('Prompts.Review.status'), ratingBtns())
 				break
 
-			case Questions.STATUS:
-				currentQuestion++
+			case ReviewQuestions.STATUS:
+				currentQuestion = ReviewQuestions.PRICE
 				ctx.reply(i18n.__('Prompts.Review.price'), ratingBtns())
 				break
 
-			case Questions.PRICE:
-				currentQuestion = Questions.TRACKING
+			case ReviewQuestions.PRICE:
+				currentQuestion = ReviewQuestions.TRACKING
 				ctx.reply('bruh, uve finished')
 
 			default:
