@@ -2,6 +2,7 @@ import { v4 as uuid } from 'uuid'
 import {
 	Review as ReviewInterface,
 	Response as ResponseInterface,
+	Issue as IssueInterface,
 	Ratings,
 	ReviewQuestions,
 } from './myContext'
@@ -27,5 +28,17 @@ export class Response implements ResponseInterface {
 	constructor(reviews: ReviewInterface[] = []) {
 		this.id = uuid()
 		this.reviews = reviews
+	}
+}
+
+export class Issue implements IssueInterface {
+	id: string
+	comment: string
+	photo?: string
+
+	constructor(comment: string, photo?: string) {
+		this.id = uuid()
+		this.comment = comment
+		this.photo = photo
 	}
 }

@@ -31,6 +31,10 @@
 			"status": "How is the physical status of the product ?",
 			"price": "How was the pricing 💲 ?",
 			"finish": "Thanks, we got your response ✨"
+		},
+		"reportIssue": "We are sorry to hear that, we will take you through a couple of steps to understand you and help you 🌧",
+		"Issue": {
+			"comment": "Please let us know about the problem by describing it 📝"
 		}
 	}
 }
