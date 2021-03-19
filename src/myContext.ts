@@ -14,7 +14,7 @@ export enum ReviewQuestions {
 }
 
 export interface User {
-	id: number
+	id: string
 	is_bot: boolean
 	first_name: string
 	last_name: string
@@ -23,19 +23,19 @@ export interface User {
 }
 
 export interface Review {
-	id: number
+	id: string
 	question: ReviewQuestions
 	rating: Ratings
 	comment?: string
 }
 
 export interface Response {
-	id: number
-	reviews: Review[]
+	id: string
+	reviews: Array<Review>
 }
 
 export interface Issue {
-	id: number
+	id: string
 	comment: string
 	photo?: string
 }

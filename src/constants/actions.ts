@@ -7,7 +7,7 @@ enum Actions {
 	NEXT = 'NEXT',
 	RATING = 'RATING',
 	RATING_BAD = 'RATING_BAD',
-	RATING_GOOD = 'RATING_BAD',
+	RATING_GOOD = 'RATING_GOOD',
 	RATING_EXCELLENT = 'RATING_EXCELLENT',
 }
 export default Actions
