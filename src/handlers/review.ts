@@ -138,7 +138,7 @@ function handleQuestionsFlow(ctx: MyContext): void {
 			response.reviews.push(new Review(ReviewQuestions.PRICE, rating, comment))
 
 			// store the response locally
-			// ctx.session.responses.push(response)
+			ctx.session.responses.push(response)
 			console.log(response)
 			flow.stopFlow()
 

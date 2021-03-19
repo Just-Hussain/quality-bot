@@ -33,7 +33,12 @@ export default (bot: Telegraf<MyContext>): void => {
 
 	// Bot first time starting, stores the user locally and set the language
 	bot.start(ctx => {
+		// Init the session
 		ctx.session.user = { ...ctx.from }
+		ctx.session.responses = ctx.session.responses || []
+		ctx.session.issues = ctx.session.issues || []
+		ctx.session.location = ctx.session.location || 'No Location'
+
 		if (ctx.from.language_code) i18n.setLocale(ctx.from.language_code)
 		console.log(ctx.from)
 
@@ -42,6 +47,7 @@ export default (bot: Telegraf<MyContext>): void => {
 
 	// handles /help
 	bot.help(ctx => {
+		flow.stopFlow()
 		ctx.reply('Here is some help')
 	})
 
@@ -54,11 +60,13 @@ export default (bot: Telegraf<MyContext>): void => {
 
 	// Handles changing language
 	bot.command(Commands.CHANGE, ctx => {
+		flow.stopFlow()
 		ctx.reply(i18n.__('Locales.changeLocale'), localeBtns)
 	})
 
 	bot.action(Actions.SET_AR, async ctx => {
 		await ctx.answerCbQuery()
+		flow.stopFlow()
 		i18n.setLocale('ar')
 
 		await ctx.reply(i18n.__('Locales.localeChanged'))
@@ -67,6 +75,7 @@ export default (bot: Telegraf<MyContext>): void => {
 
 	bot.action(Actions.SET_EN, async ctx => {
 		await ctx.answerCbQuery()
+		flow.stopFlow()
 		i18n.setLocale('en')
 
 		await ctx.reply(i18n.__('Locales.localeChanged'))
@@ -74,6 +83,7 @@ export default (bot: Telegraf<MyContext>): void => {
 	})
 
 	bot.action(Actions.START, ctx => {
+		flow.stopFlow()
 		ctx.answerCbQuery()
 		ctx.reply(i18n.__('Prompts.options'), optionsBtns())
 	})
