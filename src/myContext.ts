@@ -14,12 +14,12 @@ export enum ReviewQuestions {
 }
 
 export interface User {
-	id: string
+	id: number
 	is_bot: boolean
 	first_name: string
-	last_name: string
-	username: string
-	language_code: string
+	last_name?: string
+	username?: string
+	language_code?: string
 }
 
 export interface Review {

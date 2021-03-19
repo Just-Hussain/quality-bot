@@ -1,5 +1,5 @@
 import i18n from 'i18n'
-import { Telegraf, Context, Markup } from 'telegraf'
+import { Telegraf, Markup } from 'telegraf'
 import { MyContext } from '../myContext'
 import Actions from '../constants/actions'
 import Commands from '../constants/commands'
@@ -30,8 +30,12 @@ export default (bot: Telegraf<MyContext>): void => {
 		])
 	}
 
-	// Bot first time starting
+	// Bot first time starting, stores the user locally and set the language
 	bot.start(ctx => {
+		ctx.session.user = { ...ctx.from }
+		if (ctx.from.language_code) i18n.setLocale(ctx.from.language_code)
+		console.log(ctx.from)
+
 		ctx.reply(i18n.__('startMessage'), localeBtns)
 	})
 
@@ -46,7 +50,7 @@ export default (bot: Telegraf<MyContext>): void => {
 		ctx.reply(i18n.__('Prompts.start'), startBtn())
 	})
 
-	// Handles change language
+	// Handles changing language
 	bot.command(Commands.CHANGE, ctx => {
 		ctx.reply(i18n.__('Locales.changeLocale'), localeBtns)
 	})
