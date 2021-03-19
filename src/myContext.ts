@@ -31,7 +31,7 @@ export interface Review {
 
 export interface Response {
 	id: number
-	reviews: Review
+	reviews: Review[]
 }
 
 export interface Issue {
