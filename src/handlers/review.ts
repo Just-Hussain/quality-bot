@@ -1,5 +1,6 @@
 import i18n from 'i18n'
 import { Telegraf, Context, Markup } from 'telegraf'
+import { MyContext } from '../myContext'
 import Actions from '../constants/actions'
 
 enum Questions {
@@ -11,7 +12,7 @@ enum Questions {
 let commentRequested: boolean = false
 let currentQuestion: Questions = Questions.TRACKING
 
-export default (bot: Telegraf): void => {
+export default (bot: Telegraf<MyContext>): void => {
 	let ratingBtns = () => {
 		return Markup.inlineKeyboard([
 			Markup.button.callback(i18n.__('Actions.Ratings.bad'), Actions.RATING),

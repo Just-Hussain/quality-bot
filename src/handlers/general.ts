@@ -1,9 +1,10 @@
 import i18n from 'i18n'
 import { Telegraf, Context, Markup } from 'telegraf'
+import { MyContext } from '../myContext'
 import Actions from '../constants/actions'
 import Commands from '../constants/commands'
 
-export default (bot: Telegraf): void => {
+export default (bot: Telegraf<MyContext>): void => {
 	const localeBtns = Markup.inlineKeyboard([
 		Markup.button.callback(i18n.__('Locales.arabic'), Actions.SET_AR),
 		Markup.button.callback(i18n.__('Locales.english'), Actions.SET_EN),

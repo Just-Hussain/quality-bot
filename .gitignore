@@ -1,5 +1,8 @@
-# just my todos file
+# Just my todos file
 .todo
+
+# The sessions that contains data and user info
+sessions.json
 
 # Logs
 logs

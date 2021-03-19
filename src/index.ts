@@ -1,6 +1,8 @@
 require('dotenv').config()
 import path from 'path'
 import { Telegraf } from 'telegraf'
+import { MyContext } from './myContext'
+import LocalSession from 'telegraf-session-local'
 import i18n from 'i18n'
 import handlers from './handlers'
 
@@ -19,11 +21,18 @@ i18n.configure({
 	objectNotation: true,
 })
 
+// configure the local session
+const localSession = new LocalSession({
+	storage: LocalSession.storageFileAsync,
+})
+
 // init the bot
-const bot = new Telegraf(token)
+const bot = new Telegraf<MyContext>(token)
 // bot.use(Telegraf.log())
+bot.use(localSession.middleware())
 
 // Passes the bot instance to the responsible modules
+
 handlers(bot)
 
 // Enable graceful stop

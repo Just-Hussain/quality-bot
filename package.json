@@ -8,6 +8,11 @@
 		"dev": "nodemon src/index.ts",
 		"build": "tsc -p ."
 	},
+	"nodemonConfig": {
+		"ignore": [
+			"sessions.json"
+		]
+	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/Just-Hussain/quality-bot.git"
@@ -21,7 +26,8 @@
 	"dependencies": {
 		"dotenv": "^8.2.0",
 		"i18n": "^0.13.2",
-		"telegraf": "^4.3.0"
+		"telegraf": "^4.3.0",
+		"telegraf-session-local": "^2.1.0"
 	},
 	"devDependencies": {
 		"@types/i18n": "^0.13.0",
