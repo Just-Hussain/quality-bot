@@ -17,7 +17,7 @@
 			"excellent": "Excellent 🌟"
 		},
 		"next": "Next",
-		"Review": {}
+		"home": "Go back to the main menu 🔙"
 	},
 	"Prompts": {
 		"start": "Click the button so we can start helping you 👇",
@@ -29,7 +29,8 @@
 			"tracking": "How was your shipment tracking experience 🚛 ? ",
 			"location": "How precise was the delivery location 📫 ? ",
 			"status": "How is the physical status of the product ?",
-			"price": "How was the pricing 💲 ?"
+			"price": "How was the pricing 💲 ?",
+			"finish": "Thanks, we got your response ✨"
 		}
 	}
 }
