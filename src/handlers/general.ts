@@ -61,6 +61,7 @@ export default (bot: Telegraf<MyContext>): void => {
 	// Handles changing language
 	bot.command(Commands.CHANGE, ctx => {
 		flow.stopFlow()
+		ctx.scene.leave()
 		ctx.reply(i18n.__('Locales.changeLocale'), localeBtns)
 	})
 

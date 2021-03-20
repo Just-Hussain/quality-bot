@@ -3,6 +3,7 @@
 
 # The sessions that contains data and user info
 sessions.json
+images/
 
 # Logs
 logs

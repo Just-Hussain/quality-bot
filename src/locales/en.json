@@ -34,7 +34,8 @@
 		},
 		"reportIssue": "We are sorry to hear that, we will take you through a couple of steps to understand you and help you 🌧",
 		"Issue": {
-			"comment": "Please let us know about the problem by describing it 📝"
+			"comment": "Please let us know about the problem by describing it 📝",
+			"photo": "You can send a photo showing the issue, or continue using the button 📷"
 		}
 	}
 }

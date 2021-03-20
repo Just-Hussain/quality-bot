@@ -1,13 +1,18 @@
 import i18n from 'i18n'
-import { Telegraf, Markup, Scenes } from 'telegraf'
+import { Markup, Scenes } from 'telegraf'
 import { MyContext } from '../myContext'
 import { Issue } from '../models'
 import flow from './flow'
 import Actions from '../constants/actions'
 import Commands from '../constants/commands'
+import path from 'path'
+import fs from 'fs'
+import axios from 'axios'
 
 let commentRequested: boolean = false
-let comment: string
+let photoRequested: boolean = false
+let comment: string | undefined
+let issue: Issue = new Issue('')
 
 const startBtn = () => {
 	return Markup.inlineKeyboard([
@@ -15,9 +20,26 @@ const startBtn = () => {
 	])
 }
 
+let nextBtn = () => {
+	return Markup.inlineKeyboard([
+		Markup.button.callback(i18n.__('Actions.next'), Actions.NEXT),
+	])
+}
+
+let homeBtn = () => {
+	return Markup.inlineKeyboard([
+		Markup.button.callback(i18n.__('Actions.home'), Actions.START),
+	])
+}
+
 export default (bot: Scenes.BaseScene<MyContext>): void => {
 	bot.enter(async ctx => {
+		await ctx.answerCbQuery()
 		flow.startFlow()
+
+		comment = undefined
+		commentRequested = true
+		issue = new Issue('')
 
 		await ctx.reply(i18n.__('Prompts.reportIssue'))
 		await ctx.reply(i18n.__('Prompts.Issue.comment'))
@@ -29,4 +51,65 @@ export default (bot: Scenes.BaseScene<MyContext>): void => {
 		await ctx.reply(i18n.__('Prompts.start'), startBtn())
 		ctx.scene.leave()
 	})
+
+	bot.on('message', async ctx => {
+		if (flow.isFlowing) {
+			let message: any = ctx.message
+
+			if (commentRequested && message.text) {
+				comment = message.text as string
+				issue.comment = comment
+				commentRequested = false
+				photoRequested = true
+				await ctx.reply(i18n.__('Prompts.Issue.photo'), nextBtn())
+			}
+
+			if (photoRequested && message.photo) {
+				flow.stopFlow()
+				photoRequested = false
+				// There are three versions of the photos, the last one is the highest quality
+				let photo = message.photo[2]
+				// Get the photo info form Telegram's
+				let fileLink = await ctx.telegram.getFileLink(photo.file_id)
+				let file = await downloadFile(fileLink.href)
+				issue.photo = file
+
+				ctx.session.issues.push(issue)
+
+				ctx.scene.leave()
+				ctx.reply(i18n.__('Prompts.Review.finish'), homeBtn())
+			}
+		}
+	})
+
+	bot.action(Actions.NEXT, async ctx => {
+		await ctx.answerCbQuery()
+		flow.stopFlow()
+		ctx.session.issues.push(issue)
+		ctx.scene.leave()
+		ctx.reply(i18n.__('Prompts.Review.finish'), homeBtn())
+	})
+}
+
+// fileUrl: the absolute url of the image or video you want to download
+// downloadFolder: the path of the downloaded file on your machine
+const downloadFile = async (fileUrl: string) => {
+	// Create a name for the file
+	const fileName = issue.id + path.extname(fileUrl)
+
+	// The path of the downloaded file on our machine
+	const localFilePath = path.resolve('./images', fileName)
+	try {
+		const response = await axios({
+			method: 'GET',
+			url: fileUrl,
+			responseType: 'stream',
+		})
+
+		await response.data.pipe(fs.createWriteStream(localFilePath))
+		console.log('Successfully downloaded file!')
+		return fileName
+	} catch (err) {
+		throw new Error(err)
+	}
 }
