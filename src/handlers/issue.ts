@@ -50,7 +50,7 @@ export default (bot: Scenes.BaseScene<MyContext>): void => {
 		ctx.scene.leave()
 	})
 
-	bot.on('message', async ctx => {
+	bot.on('text', async ctx => {
 		if (flow.isFlowing) {
 			let message: any = ctx.message
 
@@ -61,6 +61,12 @@ export default (bot: Scenes.BaseScene<MyContext>): void => {
 				photoRequested = true
 				await ctx.reply(i18n.__('Prompts.Issue.photo'), nextBtn())
 			}
+		}
+	})
+
+	bot.on('photo', async ctx => {
+		if (flow.isFlowing) {
+			let message: any = ctx.message
 
 			if (photoRequested && message.photo) {
 				flow.stopFlow()

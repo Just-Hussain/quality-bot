@@ -38,7 +38,7 @@ export default (bot: Telegraf<MyContext>): void => {
 		ctx.session.responses = ctx.session.responses || []
 		ctx.session.issues = ctx.session.issues || []
 		ctx.session.location = ctx.session.location || 'No Location'
-
+		ctx.scene.leave()
 		if (ctx.from.language_code) i18n.setLocale(ctx.from.language_code)
 		console.log(ctx.from)
 
