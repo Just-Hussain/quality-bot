@@ -4,6 +4,7 @@ import general from './general'
 import location from './location'
 import issue from './issue'
 import review from './review'
+import reports from './reports'
 
 const issueScene = new Scenes.BaseScene<MyContext>('issue-scene')
 const locationScene = new Scenes.BaseScene<MyContext>('location-scene')
@@ -18,6 +19,7 @@ export default (
 	])
 
 	general(bot)
+	reports(bot)
 	review(bot)
 	issue(issueScene)
 	location(locationScene)

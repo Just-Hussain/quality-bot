@@ -58,12 +58,6 @@ export default (bot: Telegraf<MyContext>): void => {
 		ctx.reply(i18n.__('startMessage'), localeBtns())
 	})
 
-	// handles /help
-	bot.help(ctx => {
-		flow.stopFlow()
-		ctx.reply('Here is some help')
-	})
-
 	// handles /cancel
 	bot.command(Commands.CANCEL, async ctx => {
 		flow.stopFlow()

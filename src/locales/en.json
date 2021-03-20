@@ -1,5 +1,7 @@
 {
 	"startMessage": "Hello and Welcome! You can start by choosing your language of preference 👇",
+	"comment": "Comment",
+	"none": "None",
 	"Locales": {
 		"english": "English 💭",
 		"arabic": "العربية 💭",
@@ -31,15 +33,19 @@
 			"location": "How precise was the delivery location 📫 ? ",
 			"status": "How is the physical status of the product ?",
 			"price": "How was the pricing 💲 ?",
-			"finish": "Thanks, we got your response ✨"
+			"finish": "Thanks, we got your response ✨",
+			"header": "Here are all your reviews: 📝"
 		},
 		"reportIssue": "We are sorry to hear that, we will take you through a couple of steps to understand you and help you 🌧",
 		"Issue": {
 			"comment": "Please let us know about the problem by describing it 📝",
-			"photo": "You can send a photo showing the issue, or continue using the button 📷"
+			"photo": "You can send a photo showing the issue, or continue using the button 📷",
+			"header": "Here are all your issues: 📝",
+			"noPhoto": "No photo was provided."
 		},
 		"noLocation": "Looks like we don't have your location, please share it for better service 🗺",
 		"shareLocation": "Click the button to share your location 👇",
-		"gotLocation": "Thanks, we got your location 🌍"
+		"gotLocation": "Thanks, we got your location 🌍",
+		"headerLocation": "Here is your saved location 📍"
 	}
 }
