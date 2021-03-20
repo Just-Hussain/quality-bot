@@ -5,21 +5,22 @@ import Actions from '../constants/actions'
 import Commands from '../constants/commands'
 import flow from './flow'
 
-export default (bot: Telegraf<MyContext>): void => {
-	const localeBtns = Markup.inlineKeyboard([
-		Markup.button.callback(i18n.__('Locales.arabic'), Actions.SET_AR),
-		Markup.button.callback(i18n.__('Locales.english'), Actions.SET_EN),
+// in a function so that i18n changes can reflect
+const startBtn = () => {
+	return Markup.inlineKeyboard([
+		Markup.button.callback(i18n.__('Actions.start'), Actions.START),
 	])
+}
 
-	// in a function so that i18n changes can reflect
-	const startBtn = () => {
-		return Markup.inlineKeyboard([
-			Markup.button.callback(i18n.__('Actions.start'), Actions.START),
-		])
-	}
-
-	const optionsBtns = () => {
-		return Markup.inlineKeyboard([
+const optionsBtns = () => {
+	return Markup.inlineKeyboard([
+		[
+			Markup.button.callback(
+				i18n.__('Actions.shareLocation'),
+				Actions.SHARE_LOCATION
+			),
+		],
+		[
 			Markup.button.callback(
 				i18n.__('Actions.reviewService'),
 				Actions.REVIEW_SERVICE
@@ -28,8 +29,18 @@ export default (bot: Telegraf<MyContext>): void => {
 				i18n.__('Actions.reportIssue'),
 				Actions.REPORT_ISSUE
 			),
-		])
-	}
+		],
+	])
+}
+
+export default (bot: Telegraf<MyContext>): void => {
+	bot.action(Actions.REPORT_ISSUE, ctx => ctx.scene.enter('issue-scene'))
+	bot.action(Actions.SHARE_LOCATION, ctx => ctx.scene.enter('location-scene'))
+
+	const localeBtns = Markup.inlineKeyboard([
+		Markup.button.callback(i18n.__('Locales.arabic'), Actions.SET_AR),
+		Markup.button.callback(i18n.__('Locales.english'), Actions.SET_EN),
+	])
 
 	// Bot first time starting, stores the user locally and set the language
 	bot.start(ctx => {
@@ -37,7 +48,7 @@ export default (bot: Telegraf<MyContext>): void => {
 		ctx.session.user = { ...ctx.from }
 		ctx.session.responses = ctx.session.responses || []
 		ctx.session.issues = ctx.session.issues || []
-		ctx.session.location = ctx.session.location || 'No Location'
+		// ctx.session.location = ctx.session.location || undefined
 		ctx.scene.leave()
 		if (ctx.from.language_code) i18n.setLocale(ctx.from.language_code)
 		console.log(ctx.from)
@@ -83,11 +94,12 @@ export default (bot: Telegraf<MyContext>): void => {
 		ctx.reply(i18n.__('Prompts.start'), startBtn())
 	})
 
-	bot.action(Actions.START, ctx => {
+	bot.action(Actions.START, async ctx => {
 		flow.stopFlow()
 		ctx.answerCbQuery()
+		if (!ctx.session.location) {
+			await ctx.reply(i18n.__('Prompts.noLocation'))
+		}
 		ctx.reply(i18n.__('Prompts.options'), optionsBtns())
 	})
-
-	bot.action(Actions.REPORT_ISSUE, ctx => ctx.scene.enter('issue-scene'))
 }

@@ -42,7 +42,7 @@ export interface Issue {
 
 export interface Session extends Scenes.SceneSessionData {
 	user: User
-	location: string
+	location?: string
 	responses: Response[]
 	issues: Issue[]
 	__scenes: Scenes.SceneSessionData

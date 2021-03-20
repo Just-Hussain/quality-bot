@@ -10,6 +10,7 @@
 		"locationRequest": "Share your location 🛸",
 		"reportIssue": "Report an issue 🚨",
 		"reviewService": "Review an order ✅",
+		"shareLocation": "Share your location 🗺",
 		"start": "Start",
 		"Ratings": {
 			"bad": "Bad ❌",
@@ -36,6 +37,7 @@
 		"Issue": {
 			"comment": "Please let us know about the problem by describing it 📝",
 			"photo": "You can send a photo showing the issue, or continue using the button 📷"
-		}
+		},
+		"noLocation": "Looks like we don't have your location, please share it for better service 🗺"
 	}
 }

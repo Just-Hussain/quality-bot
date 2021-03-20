@@ -14,7 +14,7 @@ export default (
 ): void => {
 	stage.scenes = new Map<string, Scenes.BaseScene<MyContext>>([
 		[issueScene.id, issueScene],
-		[locationScene.id, issueScene],
+		[locationScene.id, locationScene],
 	])
 
 	general(bot)
