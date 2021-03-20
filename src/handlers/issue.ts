@@ -71,8 +71,8 @@ export default (bot: Scenes.BaseScene<MyContext>): void => {
 			if (photoRequested && message.photo) {
 				flow.stopFlow()
 				photoRequested = false
-				// There are three versions of the photos, the last one is the highest quality
-				let photo = message.photo[2]
+				// There are multiple sorted sizes, the last one is the highest
+				let photo = message.photo[message.photo.length - 1]
 				// Get the photo info form Telegram's
 				let fileLink = await ctx.telegram.getFileLink(photo.file_id)
 				let file = await downloadFile(fileLink.href)
