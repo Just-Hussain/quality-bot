@@ -2,12 +2,10 @@ import i18n from 'i18n'
 import { Markup, Scenes } from 'telegraf'
 import { MyContext } from '../myContext'
 import { Issue } from '../models'
+import { downloadFile } from '../utils'
 import flow from './flow'
 import Actions from '../constants/actions'
 import Commands from '../constants/commands'
-import path from 'path'
-import fs from 'fs'
-import axios from 'axios'
 
 let commentRequested: boolean = false
 let photoRequested: boolean = false
@@ -89,27 +87,4 @@ export default (bot: Scenes.BaseScene<MyContext>): void => {
 		ctx.scene.leave()
 		ctx.reply(i18n.__('Prompts.Review.finish'), homeBtn())
 	})
-}
-
-// fileUrl: the absolute url of the image or video you want to download
-// downloadFolder: the path of the downloaded file on your machine
-const downloadFile = async (fileUrl: string) => {
-	// Create a name for the file
-	const fileName = issue.id + path.extname(fileUrl)
-
-	// The path of the downloaded file on our machine
-	const localFilePath = path.resolve('./images', fileName)
-	try {
-		const response = await axios({
-			method: 'GET',
-			url: fileUrl,
-			responseType: 'stream',
-		})
-
-		await response.data.pipe(fs.createWriteStream(localFilePath))
-		console.log('Successfully downloaded file!')
-		return fileName
-	} catch (err) {
-		throw new Error(err)
-	}
 }
