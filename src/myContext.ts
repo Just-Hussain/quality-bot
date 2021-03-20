@@ -40,9 +40,18 @@ export interface Issue {
 	photo?: string
 }
 
+export interface Location {
+	longitude: number
+	latitude: number
+	horizontal_accuracy?: number
+	live_period?: number
+	heading?: number
+	proximity_alert_radius?: number
+}
+
 export interface Session extends Scenes.SceneSessionData {
 	user: User
-	location?: string
+	location?: Location
 	responses: Response[]
 	issues: Issue[]
 	__scenes: Scenes.SceneSessionData

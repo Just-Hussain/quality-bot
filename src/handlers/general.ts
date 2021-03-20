@@ -11,6 +11,12 @@ const startBtn = () => {
 		Markup.button.callback(i18n.__('Actions.start'), Actions.START),
 	])
 }
+const localeBtns = () => {
+	return Markup.inlineKeyboard([
+		Markup.button.callback(i18n.__('Locales.arabic'), Actions.SET_AR),
+		Markup.button.callback(i18n.__('Locales.english'), Actions.SET_EN),
+	])
+}
 
 const optionsBtns = () => {
 	return Markup.inlineKeyboard([
@@ -35,12 +41,9 @@ const optionsBtns = () => {
 
 export default (bot: Telegraf<MyContext>): void => {
 	bot.action(Actions.REPORT_ISSUE, ctx => ctx.scene.enter('issue-scene'))
-	bot.action(Actions.SHARE_LOCATION, ctx => ctx.scene.enter('location-scene'))
-
-	const localeBtns = Markup.inlineKeyboard([
-		Markup.button.callback(i18n.__('Locales.arabic'), Actions.SET_AR),
-		Markup.button.callback(i18n.__('Locales.english'), Actions.SET_EN),
-	])
+	bot.action(Actions.SHARE_LOCATION, async ctx =>
+		ctx.scene.enter('location-scene')
+	)
 
 	// Bot first time starting, stores the user locally and set the language
 	bot.start(ctx => {
@@ -48,12 +51,11 @@ export default (bot: Telegraf<MyContext>): void => {
 		ctx.session.user = { ...ctx.from }
 		ctx.session.responses = ctx.session.responses || []
 		ctx.session.issues = ctx.session.issues || []
-		// ctx.session.location = ctx.session.location || undefined
 		ctx.scene.leave()
 		if (ctx.from.language_code) i18n.setLocale(ctx.from.language_code)
 		console.log(ctx.from)
 
-		ctx.reply(i18n.__('startMessage'), localeBtns)
+		ctx.reply(i18n.__('startMessage'), localeBtns())
 	})
 
 	// handles /help
@@ -73,7 +75,7 @@ export default (bot: Telegraf<MyContext>): void => {
 	bot.command(Commands.CHANGE, ctx => {
 		flow.stopFlow()
 		ctx.scene.leave()
-		ctx.reply(i18n.__('Locales.changeLocale'), localeBtns)
+		ctx.reply(i18n.__('Locales.changeLocale'), localeBtns())
 	})
 
 	bot.action(Actions.SET_AR, async ctx => {

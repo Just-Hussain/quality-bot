@@ -38,6 +38,8 @@
 			"comment": "Please let us know about the problem by describing it 📝",
 			"photo": "You can send a photo showing the issue, or continue using the button 📷"
 		},
-		"noLocation": "Looks like we don't have your location, please share it for better service 🗺"
+		"noLocation": "Looks like we don't have your location, please share it for better service 🗺",
+		"shareLocation": "Click the button to share your location 👇",
+		"gotLocation": "Thanks, we got your location 🌍"
 	}
 }
