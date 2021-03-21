@@ -16,6 +16,8 @@ export const downloadFile = async (
 
 	// The path of the downloaded file on our machine
 	const localFilePath = path.resolve(downloadDir, fileName)
+	console.log('into ' + localFilePath)
+
 	try {
 		const response = await axios({
 			method: 'GET',
