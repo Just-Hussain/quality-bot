@@ -33,6 +33,14 @@ npm run build
 ```
 npm run start
 ```
+Note: I forgot to set the commands list from within the code instead of through Bot Father, so here is:
+ 
+start - لتشغيل البوت
+cancel - لإلغاء العملية الحالية
+change - لتغيير اللغة
+reports - لرؤية جمييع تقييماتك
+issues - لرؤية جميع مشاكلك
+location - لرؤية موقعك المحفوظ
 
 **Please note that hosting the bot may cause some issues, I've solved some, but some persist**
 
