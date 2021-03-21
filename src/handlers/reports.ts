@@ -3,6 +3,7 @@ import { Composer } from 'telegraf'
 import { MyContext } from '../myContext'
 import { homeBtn } from '../mixins/buttons'
 import Commands from '../constants/commands'
+import path from 'path'
 
 export default (bot: Composer<MyContext>) => {
 	bot.command(Commands.REPORTS, async ctx => {
@@ -63,12 +64,9 @@ export default (bot: Composer<MyContext>) => {
 						`)
 					}
 				})
-
-				await ctx.replyWithMediaGroup(mediaGroup)
-				await ctx.reply('🤖', homeBtn())
-			} else {
-				ctx.reply('0️⃣', homeBtn())
 			}
+			await ctx.replyWithMediaGroup(mediaGroup)
+			await ctx.reply('🤖', homeBtn())
 		} catch (e) {
 			ctx.reply('💫')
 			console.log(e)
