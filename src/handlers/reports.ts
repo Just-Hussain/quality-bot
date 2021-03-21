@@ -67,10 +67,12 @@ export default (bot: Composer<MyContext>) => {
 					`)
 				}
 			})
-		}
-		if (mediaGroup.length > 0) await ctx.replyWithMediaGroup(mediaGroup)
+			if (mediaGroup.length > 0) await ctx.replyWithMediaGroup(mediaGroup)
 
-		await ctx.reply('🤖', homeBtn())
+			await ctx.reply('🤖', homeBtn())
+		} else {
+			ctx.reply('0️⃣', homeBtn())
+		}
 	})
 
 	bot.command(Commands.LOCATION, async ctx => {
