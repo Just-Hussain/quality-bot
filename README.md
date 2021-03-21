@@ -33,8 +33,9 @@ npm run build
 ```
 npm run start
 ```
+
 Note: I forgot to set the commands list from within the code instead of through Bot Father, so here is:
- 
+
 - start: لتشغيل البوت
 - cancel: لإلغاء العملية الحالية
 - change: لتغيير اللغة
@@ -47,6 +48,11 @@ Note: I forgot to set the commands list from within the code instead of through 
 ## The Bot on Heroku
 
 I've hosted the bot on heroku and tried to solve as many issues as i can, currently using the command `/issues` would probably break it, and it might not get up again automatically. So, if the bot is not working, It probably requires me to restart it.
+But here it is if you want to try the hosted build:
 [Quality Bot](https://t.me/HussQualityBot)
 
 Install and run the bot locally, as instructed above, to avoid any hosting-related issues.
+
+## Some Notes
+
+The sessions are stored as a local JSON file using Lowdb, just to make things simple and not over complicate the assessment. the sessions file will be auto generated when the bot first starts, living at the root directory.
