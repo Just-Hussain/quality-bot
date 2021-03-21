@@ -5,7 +5,8 @@ import { MyContext } from './myContext'
 import LocalSession from 'telegraf-session-local'
 import i18n from 'i18n'
 import handlers from './handlers'
-
+import './locales/ar.json'
+import './locales/en.json'
 // Exit if no token is provided
 const token = process.env.BOT_TOKEN
 if (token === undefined) {
