@@ -68,7 +68,8 @@ export default (bot: Composer<MyContext>) => {
 				}
 			})
 		}
-		await ctx.replyWithMediaGroup(mediaGroup)
+		if (mediaGroup.length > 0) await ctx.replyWithMediaGroup(mediaGroup)
+
 		await ctx.reply('🤖', homeBtn())
 	})
 
