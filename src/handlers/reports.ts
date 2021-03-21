@@ -36,17 +36,18 @@ export default (bot: Composer<MyContext>) => {
 		ctx.scene.leave()
 
 		await ctx.reply(i18n.__('Prompts.Issue.header'))
+		let mediaGroup: any = []
+
 		ctx.session.issues.forEach(async issue => {
 			if (issue.photo) {
-				await ctx.replyWithPhoto(
-					{ source: `images/${issue.photo}` },
-					{
-						caption: `
+				mediaGroup.push({
+					media: { source: `images/${issue.photo}` },
+					caption: `
 					${i18n.__('comment')}:
 					${issue.comment}
 					`,
-					}
-				)
+					type: 'photo',
+				})
 			} else {
 				await ctx.reply(`
 					${i18n.__('comment')}:
@@ -56,6 +57,9 @@ export default (bot: Composer<MyContext>) => {
 				`)
 			}
 		})
+
+		await ctx.replyWithMediaGroup(mediaGroup)
+		await ctx.reply('🤖', homeBtn())
 	})
 
 	bot.command(Commands.LOCATION, async ctx => {
