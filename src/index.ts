@@ -29,7 +29,7 @@ bot.use(stage.middleware())
 
 // Configure i18n singleton
 i18n.configure({
-	directory: path.join(__dirname, '/locales'),
+	directory: path.join(__dirname, './locales'),
 	defaultLocale: 'en',
 	objectNotation: true,
 })
