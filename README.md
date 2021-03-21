@@ -34,4 +34,11 @@ npm run build
 npm run start
 ```
 
-**Please note that the production build may currently have some issues, better to try the dev build**
+**Please note that hosting the bot may cause some issues, I've solved some, but some persist**
+
+## The Bot on Heroku
+
+I've hosted the bot on heroku and tried to solve as many issues as i can, currently using the command `/issues` would probably break it, and it might not get up again automatically. So, if the bot is not working, It probably requires me to restart it.
+[Quality Bot](https://t.me/HussQualityBot)
+
+Install and run the bot locally, as instructed above, to avoid any hosting-related issues.
