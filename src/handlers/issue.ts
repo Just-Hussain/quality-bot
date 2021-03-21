@@ -68,6 +68,7 @@ export default (bot: Scenes.BaseScene<MyContext>): void => {
 	bot.action(Actions.NEXT, async ctx => {
 		await ctx.answerCbQuery()
 		flow.stopFlow()
+		if (!ctx.session.issues) ctx.session.issues = []
 		ctx.session.issues.push(issue)
 		ctx.scene.leave()
 		ctx.reply(i18n.__('Prompts.Review.finish'), homeBtn())
