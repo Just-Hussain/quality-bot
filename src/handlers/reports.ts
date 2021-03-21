@@ -46,7 +46,7 @@ export default (bot: Composer<MyContext>) => {
 			ctx.session.issues.forEach(async issue => {
 				if (issue.photo) {
 					mediaGroup.push({
-						media: { source: `images/${issue.photo}` },
+						media: { source: `./images/${issue.photo}` },
 						caption: `
 						${i18n.__('comment')}:
 						${issue.comment}
