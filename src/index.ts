@@ -35,7 +35,11 @@ i18n.configure({
 })
 
 // Passes the bot and stage instances to the responsible handlers
-handlers(bot, stage)
+try {
+	handlers(bot, stage)
+} catch (e) {
+	console.log(e)
+}
 
 // Enable graceful stop
 process.once('SIGINT', () => bot.stop('SIGINT'))
