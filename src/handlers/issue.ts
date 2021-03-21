@@ -57,6 +57,7 @@ export default (bot: Scenes.BaseScene<MyContext>): void => {
 				let file = await downloadFile(fileLink.href)
 				issue.photo = file
 
+				if (!ctx.session.issues) ctx.session.issues = []
 				ctx.session.issues.push(issue)
 
 				ctx.scene.leave()
