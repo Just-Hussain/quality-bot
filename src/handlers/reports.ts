@@ -42,31 +42,36 @@ export default (bot: Composer<MyContext>) => {
 		await ctx.reply(i18n.__('Prompts.Issue.header'))
 		let mediaGroup: any = []
 
-		if (ctx.session.issues) {
-			ctx.session.issues.forEach(async issue => {
-				if (issue.photo) {
-					mediaGroup.push({
-						media: { source: `./images/${issue.photo}` },
-						caption: `
-						${i18n.__('comment')}:
-						${issue.comment}
-						`,
-						type: 'photo',
-					})
-				} else {
-					await ctx.reply(`
-						${i18n.__('comment')}:
-						${issue.comment}
-	
-						${i18n.__('Prompts.Issue.noPhoto')}
-					`)
-				}
-			})
+		try {
+			if (ctx.session.issues) {
+				ctx.session.issues.forEach(async issue => {
+					if (issue.photo) {
+						mediaGroup.push({
+							media: { source: `./images/${issue.photo}` },
+							caption: `
+							${i18n.__('comment')}:
+							${issue.comment}
+							`,
+							type: 'photo',
+						})
+					} else {
+						await ctx.reply(`
+							${i18n.__('comment')}:
+							${issue.comment}
+		
+							${i18n.__('Prompts.Issue.noPhoto')}
+						`)
+					}
+				})
 
-			await ctx.replyWithMediaGroup(mediaGroup)
-			await ctx.reply('🤖', homeBtn())
-		} else {
-			ctx.reply('0️⃣', homeBtn())
+				await ctx.replyWithMediaGroup(mediaGroup)
+				await ctx.reply('🤖', homeBtn())
+			} else {
+				ctx.reply('0️⃣', homeBtn())
+			}
+		} catch (e) {
+			ctx.reply('💫')
+			console.log(e)
 		}
 	})
 
