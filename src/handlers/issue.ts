@@ -5,18 +5,11 @@ import { Issue } from '../models'
 import { downloadFile } from '../utils'
 import flow from './flow'
 import Actions from '../constants/actions'
-import Commands from '../constants/commands'
 
 let commentRequested: boolean = false
 let photoRequested: boolean = false
 let comment: string | undefined
 let issue: Issue = new Issue('')
-
-const startBtn = () => {
-	return Markup.inlineKeyboard([
-		Markup.button.callback(i18n.__('Actions.start'), Actions.START),
-	])
-}
 
 let nextBtn = () => {
 	return Markup.inlineKeyboard([
@@ -31,6 +24,7 @@ let homeBtn = () => {
 }
 
 export default (bot: Scenes.BaseScene<MyContext>): void => {
+	// scene entered, set it up
 	bot.enter(async ctx => {
 		await ctx.answerCbQuery()
 		flow.startFlow()
@@ -43,13 +37,7 @@ export default (bot: Scenes.BaseScene<MyContext>): void => {
 		await ctx.reply(i18n.__('Prompts.Issue.comment'))
 	})
 
-	bot.command(Commands.CANCEL, async ctx => {
-		flow.stopFlow()
-		await ctx.reply(i18n.__('Prompts.cancel'))
-		await ctx.reply(i18n.__('Prompts.start'), startBtn())
-		ctx.scene.leave()
-	})
-
+	// got issue description, store it and ask for photo
 	bot.on('text', async ctx => {
 		if (flow.isFlowing) {
 			let message: any = ctx.message
@@ -64,6 +52,8 @@ export default (bot: Scenes.BaseScene<MyContext>): void => {
 		}
 	})
 
+	// got photo of issue
+	// download it, and locally save the issue object
 	bot.on('photo', async ctx => {
 		if (flow.isFlowing) {
 			let message: any = ctx.message

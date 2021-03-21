@@ -1,10 +1,12 @@
-import { Telegraf } from 'telegraf'
+import { Composer } from 'telegraf'
 import { MyContext } from '../myContext'
 import i18n from 'i18n'
 import Commands from '../constants/commands'
 
-export default (bot: Telegraf<MyContext>) => {
+export default (bot: Composer<MyContext>) => {
 	bot.command(Commands.REPORTS, async ctx => {
+		ctx.scene.leave()
+
 		let reply = `${i18n.__('Prompts.Review.header')}:\n`
 		ctx.session.responses.forEach(response => {
 			let msg = `
@@ -30,6 +32,8 @@ export default (bot: Telegraf<MyContext>) => {
 	})
 
 	bot.command(Commands.ISSUES, async ctx => {
+		ctx.scene.leave()
+
 		await ctx.reply(i18n.__('Prompts.Issue.header'))
 		ctx.session.issues.forEach(async issue => {
 			if (issue.photo) {
@@ -54,6 +58,8 @@ export default (bot: Telegraf<MyContext>) => {
 	})
 
 	bot.command(Commands.LOCATION, async ctx => {
+		ctx.scene.leave()
+
 		let location = ctx.session.location
 		if (location) {
 			await ctx.reply(i18n.__('Prompts.headerLocation'))

@@ -90,7 +90,7 @@ export default (bot: Scenes.BaseScene<MyContext>): void => {
 
 	// Check if the bot is expecting the incoming message,
 	// if yes, store it in its variable
-	bot.on('message', ctx => {
+	bot.on('text', ctx => {
 		if (commentRequested && flow.isFlowing) {
 			comment = (ctx.message as any).text
 			handleQuestionsFlow(ctx)

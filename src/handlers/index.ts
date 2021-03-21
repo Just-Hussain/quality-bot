@@ -6,10 +6,15 @@ import location from './location'
 import issue from './issue'
 import review from './review'
 import reports from './reports'
+import globalBot from './global'
 
 const reviewScene = new Scenes.BaseScene<MyContext>(SceneIDs.REVIEW)
 const issueScene = new Scenes.BaseScene<MyContext>(SceneIDs.ISSUE)
 const locationScene = new Scenes.BaseScene<MyContext>(SceneIDs.LOCATION)
+
+reviewScene.use(globalBot)
+issueScene.use(globalBot)
+locationScene.use(globalBot)
 
 export default (
 	bot: Telegraf<MyContext>,
@@ -21,8 +26,10 @@ export default (
 		[SceneIDs.LOCATION, locationScene],
 	])
 
+	bot.use(globalBot)
+
 	general(bot)
-	reports(bot)
+	reports(globalBot)
 	review(reviewScene)
 	issue(issueScene)
 	location(locationScene)
