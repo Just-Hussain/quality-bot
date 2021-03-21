@@ -3,6 +3,7 @@ import { Composer } from 'telegraf'
 import { MyContext } from '../myContext'
 import { homeBtn } from '../mixins/buttons'
 import Commands from '../constants/commands'
+import path from 'path'
 
 export default (bot: Composer<MyContext>) => {
 	bot.command(Commands.REPORTS, async ctx => {
@@ -46,7 +47,9 @@ export default (bot: Composer<MyContext>) => {
 			ctx.session.issues.forEach(async issue => {
 				if (issue.photo) {
 					mediaGroup.push({
-						media: { source: `./images/${issue.photo}` },
+						media: {
+							source: path.resolve(process.cwd(), './images', issue.photo),
+						},
 						caption: `
 						${i18n.__('comment')}:
 						${issue.comment}
