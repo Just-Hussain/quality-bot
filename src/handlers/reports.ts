@@ -43,10 +43,10 @@ export default (bot: Composer<MyContext>) => {
 		await ctx.reply(i18n.__('Prompts.Issue.header'))
 		let mediaGroup: any = []
 
-		try {
-			if (ctx.session.issues) {
-				ctx.session.issues.forEach(async issue => {
-					if (issue.photo) {
+		if (ctx.session.issues) {
+			ctx.session.issues.forEach(async issue => {
+				if (issue.photo) {
+					try {
 						mediaGroup.push({
 							media: { source: `./images/${issue.photo}` },
 							caption: `
@@ -55,22 +55,21 @@ export default (bot: Composer<MyContext>) => {
 							`,
 							type: 'photo',
 						})
-					} else {
-						await ctx.reply(`
-							${i18n.__('comment')}:
-							${issue.comment}
-		
-							${i18n.__('Prompts.Issue.noPhoto')}
-						`)
+					} catch (e) {
+						console.log(e)
 					}
-				})
-			}
-			await ctx.replyWithMediaGroup(mediaGroup)
-			await ctx.reply('🤖', homeBtn())
-		} catch (e) {
-			ctx.reply('💫')
-			console.log(e)
+				} else {
+					await ctx.reply(`
+						${i18n.__('comment')}:
+						${issue.comment}
+	
+						${i18n.__('Prompts.Issue.noPhoto')}
+					`)
+				}
+			})
 		}
+		await ctx.replyWithMediaGroup(mediaGroup)
+		await ctx.reply('🤖', homeBtn())
 	})
 
 	bot.command(Commands.LOCATION, async ctx => {
