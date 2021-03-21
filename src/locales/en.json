@@ -24,7 +24,7 @@
 	},
 	"Prompts": {
 		"start": "Click the button so we can start helping you 👇",
-		"options": "How may i help you ? click what you want to do 👇",
+		"options": "How may i help you ? click what you want to do 👇\n\nYou can type the symbol  👉   /   👈  to see the commands list.",
 		"cancel": "Cancelled the operation, you can start again 🛑",
 		"reviewService": "Your opinion matters! This will be a simple survey about the service and product. Just follow along 👏",
 		"comment": "You can comment on the service or proceed by clicking the button 👇",
