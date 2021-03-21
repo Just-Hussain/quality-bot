@@ -2,6 +2,7 @@ import i18n from 'i18n'
 import { Scenes, Markup } from 'telegraf'
 import { MyContext, ReviewQuestions, Ratings } from '../myContext'
 import { Review, Response } from '../models'
+import { homeBtn, nextBtn } from '../mixins/buttons'
 import Actions from '../constants/actions'
 import flow from './flow'
 
@@ -31,18 +32,6 @@ let ratingBtns = () => {
 			i18n.__('Actions.Ratings.excellent'),
 			Actions.RATING_EXCELLENT
 		),
-	])
-}
-
-let nextBtn = () => {
-	return Markup.inlineKeyboard([
-		Markup.button.callback(i18n.__('Actions.next'), Actions.NEXT),
-	])
-}
-
-let homeBtn = () => {
-	return Markup.inlineKeyboard([
-		Markup.button.callback(i18n.__('Actions.home'), Actions.START),
 	])
 }
 

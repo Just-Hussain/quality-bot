@@ -1,6 +1,7 @@
 import i18n from 'i18n'
 import { Scenes, Markup } from 'telegraf'
 import { MyContext } from '../myContext'
+import { homeBtn } from '../mixins/buttons'
 import Actions from './../constants/actions'
 
 const locationRequest = () => {
@@ -9,11 +10,6 @@ const locationRequest = () => {
 	])
 }
 
-let homeBtn = () => {
-	return Markup.inlineKeyboard([
-		Markup.button.callback(i18n.__('Actions.home'), Actions.START),
-	])
-}
 export default (bot: Scenes.BaseScene<MyContext>): void => {
 	bot.enter(async ctx => {
 		await ctx.answerCbQuery()

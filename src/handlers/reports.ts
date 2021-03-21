@@ -1,6 +1,7 @@
+import i18n from 'i18n'
 import { Composer } from 'telegraf'
 import { MyContext } from '../myContext'
-import i18n from 'i18n'
+import { homeBtn } from '../mixins/buttons'
 import Commands from '../constants/commands'
 
 export default (bot: Composer<MyContext>) => {
@@ -28,7 +29,7 @@ export default (bot: Composer<MyContext>) => {
 			reply += msg
 		})
 
-		ctx.reply(reply)
+		ctx.reply(reply, homeBtn())
 	})
 
 	bot.command(Commands.ISSUES, async ctx => {
@@ -66,8 +67,9 @@ export default (bot: Composer<MyContext>) => {
 			await ctx.replyWithLocation(location.latitude, location.longitude, {
 				...location,
 			})
+			ctx.reply('🤖', homeBtn())
 		} else {
-			ctx.reply(i18n.__('Prompts.noLocation'))
+			ctx.reply(i18n.__('Prompts.noLocation'), homeBtn())
 		}
 	})
 }

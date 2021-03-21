@@ -1,5 +1,6 @@
 import i18n from 'i18n'
-import { Markup, Scenes } from 'telegraf'
+import { Scenes } from 'telegraf'
+import { homeBtn, nextBtn } from '../mixins/buttons'
 import { MyContext } from '../myContext'
 import { Issue } from '../models'
 import { downloadFile } from '../utils'
@@ -10,18 +11,6 @@ let commentRequested: boolean = false
 let photoRequested: boolean = false
 let comment: string | undefined
 let issue: Issue = new Issue('')
-
-let nextBtn = () => {
-	return Markup.inlineKeyboard([
-		Markup.button.callback(i18n.__('Actions.next'), Actions.NEXT),
-	])
-}
-
-let homeBtn = () => {
-	return Markup.inlineKeyboard([
-		Markup.button.callback(i18n.__('Actions.home'), Actions.START),
-	])
-}
 
 export default (bot: Scenes.BaseScene<MyContext>): void => {
 	// scene entered, set it up
