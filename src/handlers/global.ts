@@ -42,6 +42,35 @@ const optionsBtns = () => {
 	])
 }
 
+function setMyCommands(ctx: MyContext) {
+	return ctx.setMyCommands([
+		{
+			command: 'start',
+			description: 'لتشغيل البوت',
+		},
+		{
+			command: Commands.CANCEL,
+			description: 'لإلغاء العملية الحالية',
+		},
+		{
+			command: Commands.CHANGE,
+			description: 'لتغيير اللغة',
+		},
+		{
+			command: Commands.REPORTS,
+			description: 'لرؤية جمييع تقييماتك',
+		},
+		{
+			command: Commands.LOCATION,
+			description: 'لرؤية موقعك المحفوظ',
+		},
+		{
+			command: Commands.ISSUES,
+			description: 'لرؤية جميع مشاكلك',
+		},
+	])
+}
+
 // Bot first time starting, stores the user locally and set the language
 globalBot.start(ctx => {
 	// Init the session
@@ -51,7 +80,7 @@ globalBot.start(ctx => {
 	ctx.session.issues = ctx.session.issues || []
 	if (ctx.from.language_code) i18n.setLocale(ctx.from.language_code)
 	console.log(ctx.from)
-
+	setMyCommands(ctx)
 	ctx.reply(i18n.__('startMessage'), localeBtns())
 })
 
