@@ -7,6 +7,7 @@ import issue from './issue'
 import review from './review'
 import reports from './reports'
 
+const reviewScene = new Scenes.BaseScene<MyContext>(SceneIDs.REVIEW)
 const issueScene = new Scenes.BaseScene<MyContext>(SceneIDs.ISSUE)
 const locationScene = new Scenes.BaseScene<MyContext>(SceneIDs.LOCATION)
 
@@ -15,13 +16,14 @@ export default (
 	stage: Scenes.Stage<MyContext>
 ): void => {
 	stage.scenes = new Map<string, Scenes.BaseScene<MyContext>>([
+		[SceneIDs.REVIEW, reviewScene],
 		[SceneIDs.ISSUE, issueScene],
 		[SceneIDs.LOCATION, locationScene],
 	])
 
 	general(bot)
 	reports(bot)
-	review(bot)
+	review(reviewScene)
 	issue(issueScene)
 	location(locationScene)
 }

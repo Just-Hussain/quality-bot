@@ -1,5 +1,5 @@
 import i18n from 'i18n'
-import { Telegraf, Markup } from 'telegraf'
+import { Scenes, Markup } from 'telegraf'
 import { MyContext, ReviewQuestions, Ratings } from '../myContext'
 import { Review, Response } from '../models'
 import Actions from '../constants/actions'
@@ -46,9 +46,9 @@ let homeBtn = () => {
 	])
 }
 
-export default (bot: Telegraf<MyContext>): void => {
+export default (bot: Scenes.BaseScene<MyContext>): void => {
 	// The starting point of the reviewing flow
-	bot.action(Actions.REVIEW_SERVICE, async ctx => {
+	bot.enter(async ctx => {
 		await ctx.answerCbQuery()
 
 		flow.startFlow()
@@ -143,6 +143,7 @@ function handleQuestionsFlow(ctx: MyContext): void {
 			flow.stopFlow()
 
 			ctx.reply(i18n.__('Prompts.Review.finish'), homeBtn())
+			ctx.scene.leave()
 	}
 
 	commentRequested = false

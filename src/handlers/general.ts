@@ -4,6 +4,7 @@ import { MyContext } from '../myContext'
 import Actions from '../constants/actions'
 import Commands from '../constants/commands'
 import flow from './flow'
+import SceneIDs from '../constants/SceneIDs'
 
 // in a function so that i18n changes can reflect
 const startBtn = () => {
@@ -40,10 +41,9 @@ const optionsBtns = () => {
 }
 
 export default (bot: Telegraf<MyContext>): void => {
-	bot.action(Actions.REPORT_ISSUE, ctx => ctx.scene.enter('issue-scene'))
-	bot.action(Actions.SHARE_LOCATION, async ctx =>
-		ctx.scene.enter('location-scene')
-	)
+	bot.action(Actions.REVIEW_SERVICE, ctx => ctx.scene.enter(SceneIDs.REVIEW))
+	bot.action(Actions.REPORT_ISSUE, ctx => ctx.scene.enter(SceneIDs.ISSUE))
+	bot.action(Actions.SHARE_LOCATION, ctx => ctx.scene.enter(SceneIDs.LOCATION))
 
 	// Bot first time starting, stores the user locally and set the language
 	bot.start(ctx => {
