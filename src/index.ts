@@ -16,7 +16,6 @@ if (token === undefined) {
 
 // init the bot
 const bot = new Telegraf<MyContext>(token)
-// bot.use(Telegraf.log())
 
 // configure the local session
 const localSession = new LocalSession({
@@ -28,12 +27,10 @@ bot.use(localSession.middleware())
 let stage = new Scenes.Stage<MyContext>()
 bot.use(stage.middleware())
 
-bot.command('sc', ctx => ctx.scene.enter('echo'))
-
 // Configure i18n singleton
 i18n.configure({
 	directory: path.join(__dirname, '/locales'),
-	defaultLocale: 'ar',
+	defaultLocale: 'en',
 	objectNotation: true,
 })
 
