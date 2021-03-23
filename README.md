@@ -6,6 +6,8 @@ This bot was written in about 4 days for an internship application assessment. T
 This was also a first for me with both Typescript and Docker, has been nice experimenting with new stuff though.
 _So I've decided to skip Docker, don't have the energy to configure it._
 
+![Example](blob:https://imgur.com/84220194-42ac-41d1-b5bb-fd973a405870)
+
 ## Project Setup
 
 The app requires a `BOT_TOKEN` to be provided in `.env`. The token can be taken from **@BotFather** on Telegram.
